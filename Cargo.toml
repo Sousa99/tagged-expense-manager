@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 indradb-lib = "4.0.0"
+uuid = "1.9.1"
