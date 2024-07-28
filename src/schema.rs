@@ -2,7 +2,7 @@
 
 diesel::table! {
     expenses (id) {
-        id -> Nullable<Integer>,
+        id -> Integer,
         title -> Text,
         description -> Nullable<Text>,
     }

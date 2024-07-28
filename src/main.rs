@@ -1,7 +1,11 @@
-use diesel::prelude::*;
-use dotenvy::dotenv;
 use std::env;
 use std::process;
+
+use dotenvy::dotenv;
+use diesel::prelude::*;
+
+pub mod schema;
+pub mod models;
 
 fn main() {
     // Load Environment Variables
