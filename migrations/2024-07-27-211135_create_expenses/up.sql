@@ -1,5 +1,5 @@
 CREATE TABLE expenses (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR NOT NULL,
     description VARCHAR
 )
