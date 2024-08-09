@@ -1,6 +1,8 @@
-use tagged_expense_manager::database;
+use tagged_expense_manager::{database, models::expenses::NewExpense};
 
-use diesel::sqlite::SqliteConnection;
+use std::fs::File;
+use std::process;
+
 use dotenvy::dotenv;
 
 fn main() {
@@ -13,18 +15,34 @@ fn main() {
     log::info!("Starting up main application 🚀");
     let mut database_connection = database::connection::establish_connection();
 
+    // Reading Mock Expenses
+    log::debug!("Reading mock 'expenses'");
+    let records = read_records("./mock-data/basic-functionality/expenses.csv".to_string())
+        .unwrap_or_else(|err| {
+            log::error!("Error reading mock 'expenses'");
+            log::error!("{}", err);
+            process::exit(1);
+        });
+    log::info!("Completed reading mock 'expenses");
+
     // Add Mock Expenses
-    log::info!("Inserting mock 'expenses'");
-    create_mock_expenses(&mut database_connection);
+    log::debug!("Inserting mock 'expenses'");
+    records.into_iter()
+        .map(|record| (record.title.clone(), database::expenses::insert_new_expense(&mut database_connection, record)))
+        .filter_map(|(title, result)| {
+            match result {
+                Ok(_) => None,
+                Err(err) => Some((title, err))
+            }
+        })
+        .for_each(|(title, err)| log::error!("Record '{}' could not be inserted: {}", title, err));
     log::info!("Completed inserting mock 'expenses'");
 }
 
-fn create_mock_expenses(conn: &mut SqliteConnection) {
-    database::expenses::insert_new_expense(
-        conn,
-        "Test Expense 1",
-        Some("Test Expense 1 Description"),
-    )
-    .unwrap();
-    database::expenses::insert_new_expense(conn, "Test Expense 1", None).unwrap();
+fn read_records(filename: String) -> Result<Vec<NewExpense>, String> {
+    let file = File::open(filename).map_err(|err| err.to_string())?;
+    let mut reader = csv::Reader::from_reader(file);
+
+    let records: csv::Result<Vec<NewExpense>> = reader.deserialize().into_iter().collect();
+    records.map_err(|err| err.to_string())
 }

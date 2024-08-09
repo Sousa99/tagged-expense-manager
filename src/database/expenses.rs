@@ -5,12 +5,8 @@ use diesel::prelude::*;
 
 pub fn insert_new_expense(
     conn: &mut SqliteConnection,
-    title: &str,
-    description: Option<&str>,
+    new_expense: NewExpense
 ) -> QueryResult<Expense> {
-    // Create Expense
-    let new_expense = NewExpense { title, description };
-
     // Save Expense
     diesel::insert_into(schema::expenses::table)
         .values(&new_expense)
