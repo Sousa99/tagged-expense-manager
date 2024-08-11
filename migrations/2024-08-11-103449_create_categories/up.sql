@@ -1,7 +1,6 @@
-CREATE TABLE expenses (
+CREATE TABLE categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    title VARCHAR NOT NULL,
-    description VARCHAR,
-    timestamp DATETIME
+    name VARCHAR NOT NULL,
+    description VARCHAR
 )
