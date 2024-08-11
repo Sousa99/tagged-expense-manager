@@ -4,8 +4,8 @@ use crate::schema;
 use diesel::prelude::*;
 
 pub fn insert_new_expense(
+    new_expense: NewExpense,
     conn: &mut SqliteConnection,
-    new_expense: NewExpense
 ) -> QueryResult<Expense> {
     // Save Expense
     diesel::insert_into(schema::expenses::table)
