@@ -1,5 +1,3 @@
-use diesel::{QueryResult, SqliteConnection};
-use serde::de::DeserializeOwned;
 use tagged_expense_manager::database;
 use tagged_expense_manager::models::expenses::{Expense, NewExpense};
 
@@ -8,20 +6,31 @@ use std::path::{Path, PathBuf};
 use std::process;
 
 use dotenvy::dotenv;
+use clap::Parser;
+use diesel::{QueryResult, SqliteConnection};
+use serde::de::DeserializeOwned;
+
+#[derive(Parser)]
+#[command(version, about, long_about = None)]
+struct Cli {
+    /// The path to the folder of mock files to use
+    #[arg(short, long)]
+    mock_path: std::path::PathBuf,
+}
 
 fn main() {
     // Load Environment Variables
     dotenv().expect("🚫 .env file could not found");
-
     // Initialize Logger
     env_logger::init();
+    // Load Arguments
+    let args = Cli::parse();
 
     log::info!("Starting up main application 🚀");
     let mut database_connection = database::connection::establish_connection();
 
-    let base_path = PathBuf::from("./mock-data/basic-functionality/");
     import_from_csv::<NewExpense, Expense>(
-        &base_path,
+        &args.mock_path,
         String::from("expenses"),
         database::expenses::insert_new_expense,
         &mut database_connection,
