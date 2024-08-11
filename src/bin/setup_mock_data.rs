@@ -1,4 +1,5 @@
 use tagged_expense_manager::database;
+use tagged_expense_manager::models::categories::{Category, NewCategory};
 use tagged_expense_manager::models::expenses::{Expense, NewExpense};
 
 use std::fs::File;
@@ -33,6 +34,12 @@ fn main() {
         &args.mock_path,
         String::from("expenses"),
         database::expenses::insert_new_expense,
+        &mut database_connection,
+    );
+    import_from_csv::<NewCategory, Category>(
+        &args.mock_path,
+        String::from("categories"),
+        database::categories::insert_new_category,
         &mut database_connection,
     );
 }
