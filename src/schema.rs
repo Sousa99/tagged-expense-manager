@@ -3,7 +3,7 @@
 diesel::table! {
     categories (id) {
         id -> Integer,
-        created_at -> Nullable<Timestamp>,
+        created_at -> Timestamp,
         name -> Text,
         description -> Nullable<Text>,
     }
@@ -12,25 +12,27 @@ diesel::table! {
 diesel::table! {
     categories_hierarchy (rowid) {
         rowid -> Integer,
-        category_id -> Nullable<Integer>,
-        rgt -> Nullable<Integer>,
+        category_id -> Integer,
+        lft -> Integer,
+        rgt -> Integer,
     }
 }
 
 diesel::table! {
     expenses (id) {
         id -> Integer,
-        created_at -> Nullable<Timestamp>,
+        created_at -> Timestamp,
         title -> Text,
         description -> Nullable<Text>,
-        timestamp -> Nullable<Timestamp>,
+        timestamp -> Timestamp,
+        value_decimal -> Integer,
     }
 }
 
 diesel::table! {
     expenses_categories (expense_id, category_id) {
-        expense_id -> Nullable<Integer>,
-        category_id -> Nullable<Integer>,
+        expense_id -> Integer,
+        category_id -> Integer,
     }
 }
 

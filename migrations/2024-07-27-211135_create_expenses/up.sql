@@ -1,7 +1,8 @@
 CREATE TABLE expenses (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     title VARCHAR NOT NULL,
     description VARCHAR,
-    timestamp DATETIME
+    timestamp DATETIME NOT NULL,
+    value_decimal INTEGER NOT NULL
 )

@@ -1,3 +1,6 @@
+use crate::utils::timestamp_serializer;
+
+use chrono::NaiveDateTime;
 use diesel::prelude::*;
 use serde::Deserialize;
 
@@ -6,8 +9,11 @@ use serde::Deserialize;
 #[diesel(check_for_backend(diesel::sqlite::Sqlite))]
 pub struct Expense {
     pub id: i32,
+    pub created_at: NaiveDateTime,
     pub title: String,
     pub description: Option<String>,
+    pub timestamp: NaiveDateTime,
+    pub value_decimal: i32
 }
 
 #[derive(Deserialize, Insertable)]
@@ -15,4 +21,7 @@ pub struct Expense {
 pub struct NewExpense {
     pub title: String,
     pub description: Option<String>,
+    #[serde(with = "timestamp_serializer")]
+    pub timestamp: NaiveDateTime,
+    pub value_decimal: i32
 }
