@@ -1,4 +1,4 @@
-use crate::models::categories::{Category, NewCategory};
+use crate::database::entities::categories::{Category, NewCategory};
 use crate::schema;
 
 use diesel::prelude::*;

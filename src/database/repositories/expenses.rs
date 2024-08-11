@@ -1,4 +1,4 @@
-use crate::models::expenses::{Expense, NewExpense};
+use crate::database::entities::expenses::{Expense, NewExpense};
 use crate::schema;
 
 use diesel::prelude::*;

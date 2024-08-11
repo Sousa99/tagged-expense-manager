@@ -1,4 +1,4 @@
-use crate::utils::timestamp_serializer;
+use crate::database::utils::timestamp_serializer;
 
 use chrono::NaiveDateTime;
 use diesel::prelude::*;

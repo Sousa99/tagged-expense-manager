@@ -1,6 +1,6 @@
-use tagged_expense_manager::database;
-use tagged_expense_manager::models::categories::{Category, NewCategory};
-use tagged_expense_manager::models::expenses::{Expense, NewExpense};
+use tagged_expense_manager::database::entities as db_entities;
+use tagged_expense_manager::database::repositories as db_repositories;
+use tagged_expense_manager::database::utils as db_utils;
 
 use std::fs::File;
 use std::path::{Path, PathBuf};
@@ -28,18 +28,18 @@ fn main() {
     let args = Cli::parse();
 
     log::info!("Starting up main application 🚀");
-    let mut database_connection = database::connection::establish_connection();
+    let mut database_connection = db_utils::connection::establish_connection();
 
-    import_from_csv::<NewExpense, Expense>(
+    import_from_csv::<db_entities::expenses::NewExpense, db_entities::expenses::Expense>(
         &args.mock_path,
         String::from("expenses"),
-        database::expenses::insert_new_expense,
+        db_repositories::expenses::insert_new_expense,
         &mut database_connection,
     );
-    import_from_csv::<NewCategory, Category>(
+    import_from_csv::<db_entities::categories::NewCategory, db_entities::categories::Category>(
         &args.mock_path,
         String::from("categories"),
-        database::categories::insert_new_category,
+        db_repositories::categories::insert_new_category,
         &mut database_connection,
     );
 }

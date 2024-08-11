@@ -9,5 +9,5 @@ fn main() {
     env_logger::init();
 
     log::info!("Starting up main application 🚀");
-    let _database_connection = database::connection::establish_connection();
+    let _database_connection = database::utils::connection::establish_connection();
 }
