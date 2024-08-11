@@ -13,7 +13,7 @@ pub struct Expense {
     pub title: String,
     pub description: Option<String>,
     pub timestamp: NaiveDateTime,
-    pub value_decimal: i32
+    pub value_decimal: i32,
 }
 
 #[derive(Deserialize, Insertable)]
@@ -23,5 +23,5 @@ pub struct NewExpense {
     pub description: Option<String>,
     #[serde(with = "timestamp_serializer")]
     pub timestamp: NaiveDateTime,
-    pub value_decimal: i32
+    pub value_decimal: i32,
 }

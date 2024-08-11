@@ -1,11 +1,9 @@
 use chrono::NaiveDateTime;
 use serde::{self, Deserialize, Deserializer};
 
-const FORMAT: &'static str = "%Y-%m-%d %H:%M:%S";
+const FORMAT: &str = "%Y-%m-%d %H:%M:%S";
 
-pub fn deserialize<'de, D>(
-    deserializer: D,
-) -> Result<NaiveDateTime, D::Error>
+pub fn deserialize<'de, D>(deserializer: D) -> Result<NaiveDateTime, D::Error>
 where
     D: Deserializer<'de>,
 {

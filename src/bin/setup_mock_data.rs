@@ -5,9 +5,9 @@ use std::fs::File;
 use std::path::{Path, PathBuf};
 use std::process;
 
-use dotenvy::dotenv;
 use clap::Parser;
 use diesel::{QueryResult, SqliteConnection};
+use dotenvy::dotenv;
 use serde::de::DeserializeOwned;
 
 #[derive(Parser)]
