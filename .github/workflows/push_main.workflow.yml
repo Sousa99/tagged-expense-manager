@@ -12,3 +12,12 @@ jobs:
     uses: ./.github/workflows/aux_rust_branch_quality.yml
     with:
       module: lib
+
+  desktop-application-backend-application:
+    name: 📂 Desktop Application Backend Quality Validation
+    needs:
+      lib-branch-quality
+
+    uses: ./.github/workflows/aux_rust_branch_quality.yml
+    with:
+      module: desktop-application/src-tauri
