@@ -1,0 +1,54 @@
+name: 'Install Linux Requirements'
+description: 'Re-usable action to install linux system requirements'
+
+inputs:
+  cache-key:
+    description: 'Key to use for caching the installed packages'
+    required: false
+    default: '${{ github.run_id }}-system-deps'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache apt package lists
+      id: cache-apt-lists
+      uses: actions/cache@v3
+      with:
+        path: /var/lib/apt/lists
+        key: ${{ inputs.cache-key }}-apt-lists
+
+    - name: Cache installed apt packages
+      id: cache-apt-packages
+      uses: actions/cache@v3
+      with:
+        path: /var/cache/apt/archives
+        key: ${{ inputs.cache-key }}-apt-packages
+
+    - name: Install dependencies
+      if: steps.cache-apt-lists.outputs.cache-hit != 'true' || steps.cache-apt-packages.outputs.cache-hit != 'true'
+      run: |
+        sudo apt update
+        sudo apt install -y \
+            libwebkit2gtk-4.0-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libssl-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+
+    - name: Save apt package lists
+      if: steps.cache-apt-lists.outputs.cache-hit != 'true'
+      uses: actions/cache@v3
+      with:
+        path: /var/lib/apt/lists
+        key: ${{ inputs.cache-key }}-apt-lists
+
+    - name: Save installed apt packages
+      if: steps.cache-apt-packages.outputs.cache-hit != 'true'
+      uses: actions/cache@v3
+      with:
+        path: /var/cache/apt/archives
+        key: ${{ inputs.cache-key }}-apt-packages

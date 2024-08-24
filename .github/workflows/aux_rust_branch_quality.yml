@@ -19,6 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_linux_requirements
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
@@ -37,6 +38,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_linux_requirements
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
@@ -55,6 +57,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_linux_requirements
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
@@ -75,6 +78,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_linux_requirements
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
