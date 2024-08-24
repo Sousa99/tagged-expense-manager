@@ -26,6 +26,7 @@ runs:
 
     - name: Install dependencies
       if: steps.cache-apt-lists.outputs.cache-hit != 'true' || steps.cache-apt-packages.outputs.cache-hit != 'true'
+      shell: bash
       run: |
         sudo apt update
         sudo apt install -y \
