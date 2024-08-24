@@ -31,6 +31,10 @@ jobs:
   test:
     name: 🧪 Test Suite
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.module }}
+    
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rs/toolchain@v1.0.6
@@ -45,6 +49,10 @@ jobs:
   fmt:
     name: ✨ Rustfmt
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.module }}
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rs/toolchain@v1.0.6
@@ -61,6 +69,10 @@ jobs:
   clippy:
     name: 🤖 Clippy
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.module }}
+    
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rs/toolchain@v1.0.6
