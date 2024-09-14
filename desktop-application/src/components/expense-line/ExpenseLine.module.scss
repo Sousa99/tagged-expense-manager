@@ -1,0 +1,37 @@
+@use '../../styles/global.scss';
+
+.expense-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  gap: 20px;
+
+  background: rgba(166, 190, 205, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.1px);
+  -webkit-backdrop-filter: blur(4.1px);
+  border: 1px solid rgba(166, 190, 205, 0.66);
+
+  padding: 20px;
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+
+    p {
+      margin: 0px;
+      font-family: 'Mondapick';
+    }
+
+    .title {
+
+    }
+  }
+}
