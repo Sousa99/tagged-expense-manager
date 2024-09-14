@@ -27,16 +27,23 @@ export interface ExpenseLineProps {
  */
 export const ExpenseLine = (props: ExpenseLineProps): JSX.Element => {
 
+  const wholePrice = Math.floor(props.expense_value / 100)
+    .toString();
+  const partPrice = Math.floor(props.expense_value % 100)
+    .toString()
+    .padStart(2, '0');
+  const priceFomatted = `${wholePrice}.${partPrice} €`
+
   return (
     <div className={styles['expense-line']} data-testid='expense-line-component'>
       <div className={styles['description']}>
-        <div className={styles['title']}>
-          <p>{props.expense_title}</p>
-          <p>{props.expense_time}</p>
+        <div className={styles['header']}>
+          <p id='title' className={styles['title']}>{props.expense_title}</p>
+          <p id='timestamp' className={styles['timestamp']}>{props.expense_time}</p>
         </div>
         <p>{props.expense_description}</p>
       </div>
-      <p>{props.expense_value}</p>
+      <p className={styles['price']}>{priceFomatted}</p>
     </div>
   )
 }

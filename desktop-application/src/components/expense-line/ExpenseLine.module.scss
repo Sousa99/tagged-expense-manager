@@ -30,8 +30,20 @@
       font-family: 'Mondapick';
     }
 
-    .title {
+    .header {
 
+      .title {
+        font-size: large;
+        font-weight: bold;
+      }
+
+      .timestamp {
+        font-size: small;
+      }
     }
+  }
+
+  .price {
+    font-size: x-large;
   }
 }
