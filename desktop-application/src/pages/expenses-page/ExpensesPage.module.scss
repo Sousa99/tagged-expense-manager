@@ -1,0 +1,8 @@
+@use '../../styles/global.scss';
+@use '../../styles/variables.scss';
+
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

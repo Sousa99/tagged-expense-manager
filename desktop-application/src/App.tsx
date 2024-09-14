@@ -6,7 +6,6 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Tagged Expense Manager</h1>
       <ExpensePage />
     </div>
   );

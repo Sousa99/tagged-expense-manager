@@ -36,13 +36,13 @@ export const ExpenseLine = (props: ExpenseLineProps): JSX.Element => {
 
   return (
     <div className={styles['expense-line']} data-testid='expense-line-component'>
-      <div className={styles['description']}>
+      <div className={styles['content']}>
         <div className={styles['header']}>
           <p id='title' className={styles['title']}>{props.expense_title}</p>
           <p id='timestamp' className={styles['timestamp']}>{props.expense_time}</p>
         </div>
         { props.expense_description &&
-          <p>{props.expense_description}</p>
+          <p className={styles['description']}>{props.expense_description}</p>
         }
       </div>
       <p className={styles['price']}>{priceFomatted}</p>

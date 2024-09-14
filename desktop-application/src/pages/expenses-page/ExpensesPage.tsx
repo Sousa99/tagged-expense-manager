@@ -1,3 +1,5 @@
+import styles from './ExpensesPage.module.scss';
+
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import { ExpenseLine } from "../../components/expense-line/ExpenseLine";
@@ -19,7 +21,7 @@ export const ExpensePage = (_props: ExpensesPageProps): JSX.Element => {
   }
 
   return (
-    <div id='expense-list'>
+    <div className={styles['expense-list']}>
       { expenses.map((expense) => (
         <ExpenseLine
           key={expense.id}

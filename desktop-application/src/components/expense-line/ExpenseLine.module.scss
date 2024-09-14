@@ -1,4 +1,5 @@
 @use '../../styles/global.scss';
+@use '../../styles/variables.scss';
 
 .expense-line {
   display: flex;
@@ -6,19 +7,18 @@
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
   gap: 20px;
 
-  background: rgba(166, 190, 205, 0.35);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.17);
+  border-radius: var(--border-radius);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(4.1px);
-  -webkit-backdrop-filter: blur(4.1px);
-  border: 1px solid rgba(166, 190, 205, 0.66);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 
-  padding: 20px;
+  padding: 5px 20px;
 
-  .description {
+  .content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,22 +28,27 @@
     p {
       margin: 0px;
       font-family: 'Mondapick';
+      text-align: start;
     }
 
     .header {
 
       .title {
-        font-size: large;
-        font-weight: bold;
+        font-size: 15px;
+        font-weight: 600;
       }
 
       .timestamp {
-        font-size: small;
+        font-size: 10px;
       }
+    }
+
+    .description {
+      font-size: 13px;
     }
   }
 
   .price {
-    font-size: x-large;
+    font-size: 13px;
   }
 }
