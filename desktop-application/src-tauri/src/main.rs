@@ -1,15 +1,25 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+use dotenvy::dotenv;
+
+use tagged_expense_manager::database::entities::expenses::Expense;
+use tagged_expense_manager::services::expenses as expenses_service;
+
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+fn get_expenses() -> Option<Vec<Expense>> {
+    expenses_service::get_expenses()
 }
 
 fn main() {
+    // Load Environment Variables
+    dotenv().expect("🚫 .env file could not found");
+    // Initialize Logger
+    env_logger::init();
+
+    // Setup Tauri
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![get_expenses])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

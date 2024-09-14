@@ -12,7 +12,7 @@ export interface ExpenseLineProps {
   /**
    * Description associated with the expense
    */
-  expense_description: string,
+  expense_description?: string,
   /**
    * Value associated with the expense, expressed in cents
    */
@@ -41,7 +41,9 @@ export const ExpenseLine = (props: ExpenseLineProps): JSX.Element => {
           <p id='title' className={styles['title']}>{props.expense_title}</p>
           <p id='timestamp' className={styles['timestamp']}>{props.expense_time}</p>
         </div>
-        <p>{props.expense_description}</p>
+        { props.expense_description &&
+          <p>{props.expense_description}</p>
+        }
       </div>
       <p className={styles['price']}>{priceFomatted}</p>
     </div>
