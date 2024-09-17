@@ -1,0 +1,6 @@
+# Ignore tauri project:
+src-tauri
+
+# Ignore artifacts:
+build
+coverage
