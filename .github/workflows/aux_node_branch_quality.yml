@@ -1,0 +1,41 @@
+name: Node Branch Quality Validation
+run-name: 🫧 Node Branch Quality Validation
+
+on:
+  workflow_call:
+    inputs:
+      module:
+        description: 'Module on which to run code quality validation'
+        required: true
+        type: string
+
+jobs:
+  linter:
+    name: 🔍 Linter Checker
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.module }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
+      - run: npm run linter:check
+
+  fmt:
+    name: ✨ Prettier Formatter
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.module }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
+      - run: npm run linter:check

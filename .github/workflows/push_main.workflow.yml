@@ -21,3 +21,13 @@ jobs:
     uses: ./.github/workflows/aux_rust_branch_quality.yml
     with:
       module: desktop-application/src-tauri
+
+  desktop-application-frontend-application:
+    name: 📂 Desktop Application Frontend Quality Validation
+    needs:
+      - lib-branch-quality
+      - desktop-application-backend-application
+
+    uses: ./.github/workflows/aux_node_branch_quality.yml
+    with:
+      module: desktop-application/
