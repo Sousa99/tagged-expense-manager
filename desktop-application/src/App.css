@@ -1,7 +1,11 @@
 :root {
   height: 100%;
-  
+
   color: #ffffff;
-  background: rgb(64,134,135);
-  background: linear-gradient(135deg, rgba(64,134,135,1) 0%, rgba(0,0,0,1) 100%);
+  background: rgb(64, 134, 135);
+  background: linear-gradient(
+    135deg,
+    rgba(64, 134, 135, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
 }

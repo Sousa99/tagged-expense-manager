@@ -9,14 +9,14 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'tem-background',
+      default: "tem-background",
       values: [
         {
-          name: 'tem-background',
-          value: '#0093E9 linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)',
+          name: "tem-background",
+          value: "#0093E9 linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)",
         },
       ],
-    }
+    },
   },
 };
 

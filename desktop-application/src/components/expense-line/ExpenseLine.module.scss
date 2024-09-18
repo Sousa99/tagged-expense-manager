@@ -1,5 +1,5 @@
-@use '../../styles/global.scss';
-@use '../../styles/variables.scss';
+@use "../../styles/global.scss";
+@use "../../styles/variables.scss";
 
 .expense-line {
   display: flex;
@@ -27,12 +27,11 @@
 
     p {
       margin: 0px;
-      font-family: 'Mondapick';
+      font-family: "Mondapick";
       text-align: start;
     }
 
     .header {
-
       .title {
         font-size: 15px;
         font-weight: 600;
