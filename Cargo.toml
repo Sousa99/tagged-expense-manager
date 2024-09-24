@@ -3,5 +3,6 @@ resolver = "2"
 
 members = [
     "lib",
-    "desktop-application/src-tauri"
+    "desktop-application/src-tauri",
+    "terminal-cli"
 ]

@@ -13,7 +13,16 @@ jobs:
     with:
       module: lib
 
-  desktop-application-backend-application:
+  terminal-cli-branch-quality:
+    name: 📂 Terminal CLI Quality Validation
+    needs:
+      lib-branch-quality
+    
+    uses: ./.github/workflows/aux_rust_branch_quality.yml
+    with:
+      module: terminal-cli
+
+  desktop-application-backend-branch-quality:
     name: 📂 Desktop Application Backend Quality Validation
     needs:
       lib-branch-quality
@@ -22,11 +31,11 @@ jobs:
     with:
       module: desktop-application/src-tauri
 
-  desktop-application-frontend-application:
+  desktop-application-frontend-branch-quality:
     name: 📂 Desktop Application Frontend Quality Validation
     needs:
       - lib-branch-quality
-      - desktop-application-backend-application
+      - desktop-application-backend-branch-quality
 
     uses: ./.github/workflows/aux_node_branch_quality.yml
     with:
