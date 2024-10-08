@@ -4,8 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+anyhow = "1.0.89"
 dotenvy = "0.15.0"
-env_logger = "0.11.3"
 log = "0.4.21"
+ratatui = "0.28.1"
 tagged-expense-manager = { path = "../lib" }
-
+tui-logger = "0.13.1"
