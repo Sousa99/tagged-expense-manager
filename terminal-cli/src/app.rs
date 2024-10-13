@@ -129,13 +129,8 @@ impl Widget for &mut App {
         ])
         .areas(area);
 
-        render_tabs_widget(
-            tabs_area,
-            buf,
-            self.tabs.iter().cloned(),
-            self.state.get_tab_index(),
-        );
-        render_logger_widget(log_area, buf, self.state.get_logger_state());
+        render_tabs_widget(tabs_area, buf, &mut self.state, self.tabs.iter().cloned());
+        render_logger_widget(log_area, buf, &mut self.state);
         render_help_widget(help_area, buf);
     }
 }

@@ -7,11 +7,13 @@ use ratatui::widgets::Borders;
 use ratatui::widgets::Tabs;
 use ratatui::widgets::Widget;
 
+use crate::state::AppState;
+
 pub fn render_widget<'a, T>(
     area: Rect,
     buffer: &mut ratatui::prelude::Buffer,
+    state: &mut AppState,
     tabs: T,
-    tab_selected: usize,
 ) where
     T: IntoIterator,
     T::Item: Into<Line<'a>>,
@@ -19,6 +21,6 @@ pub fn render_widget<'a, T>(
     Tabs::new(tabs)
         .block(Block::default().title("States").borders(Borders::ALL))
         .highlight_style(Style::default().add_modifier(Modifier::REVERSED))
-        .select(tab_selected)
+        .select(state.get_tab_index())
         .render(area, buffer);
 }

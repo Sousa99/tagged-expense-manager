@@ -4,9 +4,10 @@ use ratatui::style::Style;
 use ratatui::widgets::Widget;
 use tui_logger::TuiLoggerLevelOutput;
 use tui_logger::TuiLoggerSmartWidget;
-use tui_logger::TuiWidgetState;
 
-pub fn render_widget(area: Rect, buffer: &mut ratatui::prelude::Buffer, state: &TuiWidgetState) {
+use crate::state::AppState;
+
+pub fn render_widget(area: Rect, buffer: &mut ratatui::prelude::Buffer, state: &mut AppState) {
     TuiLoggerSmartWidget::default()
         .style_error(Style::default().fg(Color::Red))
         .style_debug(Style::default().fg(Color::Green))
@@ -19,6 +20,6 @@ pub fn render_widget(area: Rect, buffer: &mut ratatui::prelude::Buffer, state: &
         .output_target(true)
         .output_file(true)
         .output_line(true)
-        .state(state)
+        .state(state.get_logger_state())
         .render(area, buffer);
 }
