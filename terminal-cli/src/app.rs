@@ -1,6 +1,7 @@
 use log::debug;
 use ratatui::crossterm::event::Event;
 use ratatui::crossterm::event::KeyCode;
+use ratatui::crossterm::event::KeyEventKind;
 use ratatui::layout::Constraint;
 use ratatui::layout::Layout;
 use ratatui::prelude::Backend;
@@ -10,6 +11,7 @@ use ratatui::widgets::*;
 use ratatui::Terminal;
 use std::sync::mpsc;
 use std::thread;
+use std::time::Duration;
 use tui_logger::TuiLoggerLevelOutput;
 use tui_logger::TuiLoggerSmartWidget;
 use tui_logger::TuiWidgetEvent;
@@ -18,6 +20,7 @@ use crate::event::AppEvent;
 use crate::state::tab::get_identifier;
 use crate::state::tab::Tab;
 use crate::state::AppState;
+use crate::utils::stream as utils_stream;
 use crate::utils::terminal as utils_term;
 
 pub struct App {
@@ -41,7 +44,11 @@ impl App {
         terminal: &mut Terminal<impl Backend>,
         rx: mpsc::Receiver<AppEvent>,
     ) -> anyhow::Result<()> {
-        for event in rx {
+        // Debounce events
+        let debounce_duration = Duration::from_millis(250);
+        let debounced_rx = utils_stream::debouce_stream(rx, debounce_duration);
+
+        for event in debounced_rx {
             // Handle application events
             match event {
                 AppEvent::UiEvent(event) => self.handle_ui_event(event),
@@ -71,6 +78,11 @@ impl App {
 
         if let Event::Key(key) = event {
             let code = key.code;
+            let kind = key.kind;
+
+            if matches!(kind, KeyEventKind::Release) {
+                return;
+            }
 
             match code {
                 KeyCode::Char('q') => self.state.stop_running(),
