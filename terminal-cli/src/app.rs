@@ -5,15 +5,11 @@ use ratatui::crossterm::event::KeyEventKind;
 use ratatui::layout::Constraint;
 use ratatui::layout::Layout;
 use ratatui::prelude::Backend;
-use ratatui::style::*;
-use ratatui::text::*;
-use ratatui::widgets::*;
+use ratatui::widgets::Widget;
 use ratatui::Terminal;
 use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
-use tui_logger::TuiLoggerLevelOutput;
-use tui_logger::TuiLoggerSmartWidget;
 use tui_logger::TuiWidgetEvent;
 
 use crate::event::AppEvent;
@@ -22,6 +18,9 @@ use crate::state::tab::Tab;
 use crate::state::AppState;
 use crate::utils::stream as utils_stream;
 use crate::utils::terminal as utils_term;
+use crate::widgets::help_widget::render_widget as render_help_widget;
+use crate::widgets::logger_widget::render_widget as render_logger_widget;
+use crate::widgets::tabs_widget::render_widget as render_tabs_widget;
 
 pub struct App {
     state: AppState,
@@ -122,7 +121,7 @@ impl Default for App {
 // Implement Ratatui's Widget for App
 impl Widget for &mut App {
     fn render(self, area: ratatui::prelude::Rect, buf: &mut ratatui::prelude::Buffer) {
-        let [tabs_area, main_area, log_area, help_area] = Layout::vertical([
+        let [tabs_area, _main_area, log_area, help_area] = Layout::vertical([
             Constraint::Length(3),
             Constraint::Fill(50),
             Constraint::Fill(30),
@@ -130,39 +129,13 @@ impl Widget for &mut App {
         ])
         .areas(area);
 
-        // show two TuiWidgetState side-by-side
-        let [_left, _right] = Layout::horizontal([Constraint::Fill(1); 2]).areas(main_area);
-
-        Tabs::new(self.tabs.iter().cloned())
-            .block(Block::default().title("States").borders(Borders::ALL))
-            .highlight_style(Style::default().add_modifier(Modifier::REVERSED))
-            .select(self.state.get_tab_index())
-            .render(tabs_area, buf);
-
-        TuiLoggerSmartWidget::default()
-            .style_error(Style::default().fg(Color::Red))
-            .style_debug(Style::default().fg(Color::Green))
-            .style_warn(Style::default().fg(Color::Yellow))
-            .style_trace(Style::default().fg(Color::Magenta))
-            .style_info(Style::default().fg(Color::Cyan))
-            .output_separator(':')
-            .output_timestamp(Some("%H:%M:%S".to_string()))
-            .output_level(Some(TuiLoggerLevelOutput::Abbreviated))
-            .output_target(true)
-            .output_file(true)
-            .output_line(true)
-            .state(self.state.get_logger_state())
-            .render(log_area, buf);
-
-        if area.width > 40 {
-            Text::from(vec![
-                "Q: Quit | Tab: Switch state | ↑/↓: Select target | f: Focus target".into(),
-                "←/→: Display level | +/-: Filter level | Space: Toggle hidden targets".into(),
-                "h: Hide target selector | PageUp/Down: Scroll | Esc: Cancel scroll".into(),
-            ])
-            .style(Color::Gray)
-            .centered()
-            .render(help_area, buf);
-        }
+        render_tabs_widget(
+            tabs_area,
+            buf,
+            self.tabs.iter().cloned(),
+            self.state.get_tab_index(),
+        );
+        render_logger_widget(log_area, buf, self.state.get_logger_state());
+        render_help_widget(help_area, buf);
     }
 }

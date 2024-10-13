@@ -3,6 +3,7 @@ mod app;
 mod event;
 mod state;
 mod utils;
+mod widgets;
 // Import of Local Modules
 use crate::app::App;
 use utils::terminal as utils_term;
