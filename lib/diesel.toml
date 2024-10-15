@@ -6,4 +6,4 @@ file = "src/schema.rs"
 custom_type_derives = ["diesel::query_builder::QueryId", "Clone"]
 
 [migrations_directory]
-dir = "C:\\Users\\rod_s\\Desktop\\Code\\Personal Projects\\tagged-expense-manager\\migrations"
+dir = ".\\migrations"
