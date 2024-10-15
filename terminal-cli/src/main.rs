@@ -10,7 +10,6 @@ use utils::terminal as utils_term;
 
 // Imports of External Crates
 use dotenvy::dotenv;
-use tagged_expense_manager::database::utils as db_utils;
 
 use log::*;
 use tui_logger::*;
@@ -22,10 +21,6 @@ fn main() -> anyhow::Result<()> {
     init_logger(LevelFilter::Trace)?;
 
     log::info!("Starting up terminal command line interface 🚀");
-
-    log::debug!("Attempting to establish connection with database");
-    let mut _database_connection = db_utils::connection::establish_connection();
-    log::debug!("Connection with database established");
 
     set_default_level(LevelFilter::Trace);
     debug!(target:"App", "Logging initialized");

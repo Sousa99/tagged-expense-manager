@@ -1,4 +1,5 @@
 use ratatui::layout::Rect;
+use ratatui::prelude::Buffer;
 use ratatui::style::Modifier;
 use ratatui::style::Style;
 use ratatui::text::Line;
@@ -9,12 +10,8 @@ use ratatui::widgets::Widget;
 
 use crate::state::AppState;
 
-pub fn render_widget<'a, T>(
-    area: Rect,
-    buffer: &mut ratatui::prelude::Buffer,
-    state: &mut AppState,
-    tabs: T,
-) where
+pub fn render_widget<'a, T>(area: Rect, buffer: &mut Buffer, state: &mut AppState, tabs: T)
+where
     T: IntoIterator,
     T::Item: Into<Line<'a>>,
 {

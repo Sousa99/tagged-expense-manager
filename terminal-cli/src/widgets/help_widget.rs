@@ -1,9 +1,10 @@
 use ratatui::layout::Rect;
+use ratatui::prelude::Buffer;
 use ratatui::style::Color;
 use ratatui::text::Text;
 use ratatui::widgets::Widget;
 
-pub fn render_widget(area: Rect, buffer: &mut ratatui::prelude::Buffer) {
+pub fn render_widget(area: Rect, buffer: &mut Buffer) {
     Text::from(vec![
         "Q: Quit | Tab: Switch state | ↑/↓: Select target | f: Focus target".into(),
         "←/→: Display level | +/-: Filter level | Space: Toggle hidden targets".into(),

@@ -1,4 +1,5 @@
 use ratatui::layout::Rect;
+use ratatui::prelude::Buffer;
 use ratatui::style::Color;
 use ratatui::style::Style;
 use ratatui::widgets::Widget;
@@ -7,7 +8,7 @@ use tui_logger::TuiLoggerSmartWidget;
 
 use crate::state::AppState;
 
-pub fn render_widget(area: Rect, buffer: &mut ratatui::prelude::Buffer, state: &mut AppState) {
+pub fn render_widget(area: Rect, buffer: &mut Buffer, state: &mut AppState) {
     TuiLoggerSmartWidget::default()
         .style_error(Style::default().fg(Color::Red))
         .style_debug(Style::default().fg(Color::Green))

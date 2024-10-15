@@ -19,6 +19,7 @@ use crate::state::AppState;
 use crate::utils::stream as utils_stream;
 use crate::utils::terminal as utils_term;
 use crate::widgets::help_widget::render_widget as render_help_widget;
+use crate::widgets::list_expenses_widget::render_widget as render_list_expenses_widget;
 use crate::widgets::logger_widget::render_widget as render_logger_widget;
 use crate::widgets::tabs_widget::render_widget as render_tabs_widget;
 
@@ -121,7 +122,7 @@ impl Default for App {
 // Implement Ratatui's Widget for App
 impl Widget for &mut App {
     fn render(self, area: ratatui::prelude::Rect, buf: &mut ratatui::prelude::Buffer) {
-        let [tabs_area, _main_area, log_area, help_area] = Layout::vertical([
+        let [tabs_area, main_area, log_area, help_area] = Layout::vertical([
             Constraint::Length(3),
             Constraint::Fill(50),
             Constraint::Fill(30),
@@ -129,7 +130,10 @@ impl Widget for &mut App {
         ])
         .areas(area);
 
+        let [left, _right] = Layout::horizontal([Constraint::Fill(1); 2]).areas(main_area);
+
         render_tabs_widget(tabs_area, buf, &mut self.state, self.tabs.iter().cloned());
+        render_list_expenses_widget(left, buf, &mut self.state);
         render_logger_widget(log_area, buf, &mut self.state);
         render_help_widget(help_area, buf);
     }

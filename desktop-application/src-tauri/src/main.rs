@@ -8,7 +8,7 @@ use tagged_expense_manager::services::expenses as expenses_service;
 
 #[tauri::command]
 fn get_expenses() -> Option<Vec<Expense>> {
-    expenses_service::get_expenses()
+    expenses_service::get_expenses(None)
 }
 
 fn main() {
