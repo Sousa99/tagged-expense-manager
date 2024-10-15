@@ -24,7 +24,7 @@ pub fn render_widget(area: Rect, buffer: &mut Buffer, state: &mut AppState) {
 
     let mut list_state = ListState::default();
     List::new(expenses_identifiers)
-        .block(Block::default().title("States").borders(Borders::ALL))
+        .block(Block::default().title("Expenses").borders(Borders::ALL))
         .highlight_style(Style::default().add_modifier(Modifier::REVERSED))
         .render(area, buffer, &mut list_state);
 }
