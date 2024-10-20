@@ -19,9 +19,9 @@ clap_derive = "4.5.13"
 chrono = { version = "0.4.38", features = ["serde"] }
 
 [[bin]]
-name = "manager_cli"
+name = "import_mock_data"
 doc = false
 
 [[bin]]
-name = "setup_mock_data"
+name = "run_importer"
 doc = false

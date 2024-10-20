@@ -1,4 +1,4 @@
-use crate::database::entities::expenses::Expense;
+use crate::database::entities::expenses::{Expense, NewExpense};
 use crate::database::repositories::expenses as repo_expenses;
 use crate::database::utils as db_utils;
 use crate::database::utils::connection::DBConnection;
@@ -14,3 +14,9 @@ pub fn get_expenses(database_connection: Option<&mut DBConnection>) -> Option<Ve
         }
     })
 }
+
+pub fn save_expenses(database_connection: Option<&mut DBConnection>, expenses: Vec<NewExpense>) -> Option<Vec<Expense>> {
+    db_utils::connection::with_connection(database_connection, |conn| {
+        todo!("Add main functionality!")
+    })
+} 
