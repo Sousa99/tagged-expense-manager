@@ -17,6 +17,7 @@ serde = { version = "1.0.204", features = ["derive"] }
 clap = { version = "4.5.15", features = ["derive"] }
 clap_derive = "4.5.13"
 chrono = { version = "0.4.38", features = ["serde"] }
+thiserror = "1.0.64"
 
 [[bin]]
 name = "import_mock_data"
