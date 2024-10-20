@@ -1,8 +1,8 @@
 use std::process::exit;
 
 use tagged_expense_manager::database::utils as db_utils;
-use tagged_expense_manager::services::expenses as service_expenses;
 use tagged_expense_manager::importers::Importer;
+use tagged_expense_manager::services::expenses as service_expenses;
 
 use clap::Parser;
 use dotenvy::dotenv;
@@ -30,17 +30,18 @@ fn main() {
     log::info!("Selected importer '{}'", importer.get_name());
 
     log::debug!("Starting importer configuration");
-    importer.configure()
-        .unwrap_or_else(|_| {
-            log::error!("Importer was not configured accordingly");
-            exit(1);
-        });
+    importer.configure().unwrap_or_else(|_| {
+        log::error!("Importer was not configured accordingly");
+        exit(1);
+    });
 
     log::debug!("Starting importer");
     let new_expenses = importer.import_expenses();
-    log::info!("Importer successfully imported '#{}' expenses", new_expenses.len());
+    log::info!(
+        "Importer successfully imported '#{}' expenses",
+        new_expenses.len()
+    );
 
     log::info!("Saving expenses to database");
     let _expenses = service_expenses::save_expenses(Some(&mut database_connection), new_expenses);
-    
 }

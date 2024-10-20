@@ -8,19 +8,21 @@ use crate::error::Result;
 
 pub fn get_expenses(database_connection: Option<&mut DBConnection>) -> Result<Vec<Expense>> {
     db_utils::connection::with_connection(database_connection, |conn| {
-        repo_expenses::get_expenses(conn)
-            .map_err(|op| {
-                Error::from(GetFailure {
-                    entity: String::from("EXPENSES"),
-                    query_key: String::from("GET_ALL"),
-                    database_error: op,
-                })
+        repo_expenses::get_expenses(conn).map_err(|op| {
+            Error::from(GetFailure {
+                entity: String::from("EXPENSES"),
+                query_key: String::from("GET_ALL"),
+                database_error: op,
             })
+        })
     })
 }
 
-pub fn save_expenses(database_connection: Option<&mut DBConnection>, expenses: Vec<NewExpense>) -> Result<Vec<Expense>> {
-    db_utils::connection::with_connection(database_connection, |conn| {
+pub fn save_expenses(
+    database_connection: Option<&mut DBConnection>,
+    _expenses: Vec<NewExpense>,
+) -> Result<Vec<Expense>> {
+    db_utils::connection::with_connection(database_connection, |_conn| {
         todo!("Add main functionality!")
     })
-} 
+}

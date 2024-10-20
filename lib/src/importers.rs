@@ -7,13 +7,13 @@ use santander_pt::ImporterSantanderPT;
 
 #[derive(Clone, ValueEnum)]
 pub enum Importer {
-  SantanderPT,
+    SantanderPT,
 }
 
 impl Importer {
-  pub fn get_importer(self) -> Box<dyn ImporterTrait> {
-    match self {
-      Importer::SantanderPT => Box::new(ImporterSantanderPT::default()),
+    pub fn get_importer(self) -> Box<dyn ImporterTrait> {
+        match self {
+            Importer::SantanderPT => Box::new(ImporterSantanderPT::default()),
+        }
     }
-  }
 }
