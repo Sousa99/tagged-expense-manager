@@ -19,6 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_linux_requirements
       - run: cargo check
 
   test:
@@ -30,6 +31,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_linux_requirements
       - run: cargo test
 
   fmt:
@@ -41,6 +43,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_linux_requirements
       - run: cargo fmt --all -- --check
 
   clippy:
@@ -52,4 +55,5 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/install_linux_requirements
       - run: cargo clippy -- -D warnings
